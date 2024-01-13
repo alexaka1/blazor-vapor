@@ -10,5 +10,10 @@
     <ProjectReference Include="..\BlazorVaporWeb.Client\BlazorVaporWeb.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
   </ItemGroup>
-
+  <Target Name="BuildCSS" BeforeTargets="Compile">
+    <Exec EnvironmentVariables="NODE_ENV=production" 
+          Command="npx tailwindcss@3 -i ./BlazorVaporWeb/BlazorVaporWeb/Styles/app.css -o ./BlazorVaporWeb/BlazorVaporWeb/wwwroot/css/app.css --minify" 
+          Condition=" '$(Configuration)' == 'Release' "
+    />
+  </Target>
 </Project>
