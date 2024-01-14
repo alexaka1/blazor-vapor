@@ -12,8 +12,12 @@
   </ItemGroup>
   <Target Name="BuildCSS" BeforeTargets="Compile">
     <Exec EnvironmentVariables="NODE_ENV=production" 
-          Command="npx tailwindcss@3 -i ./BlazorVaporWeb/BlazorVaporWeb/Styles/app.css -o ./BlazorVaporWeb/BlazorVaporWeb/wwwroot/css/app.css --minify" 
-          Condition=" '$(Configuration)' == 'Release' "
+          Command="npx --yes tailwindcss@3 -i .\Styles\app.css -o .\wwwroot\css\app.css --minify" 
+          Condition="'$(OS)' == 'Windows_NT' AND '$(Configuration)' == 'Release' "
+    />
+    <Exec EnvironmentVariables="NODE_ENV=production" 
+          Command="npx --yes tailwindcss@3 -i ./Styles/app.css -o ./wwwroot/css/app.css --minify" 
+          Condition="'$(OS)' == 'Unix' AND '$(Configuration)' == 'Release' "
     />
   </Target>
 </Project>
